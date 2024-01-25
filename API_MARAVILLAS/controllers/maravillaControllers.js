@@ -1,5 +1,4 @@
 const express=require('express');
-//const route=express.Router();
 const dbConnection= require('../config/conexionconDB');
 
 const todasLasMaravillas =(req,res)=>{
@@ -13,7 +12,6 @@ const todasLasMaravillas =(req,res)=>{
   })};
   const unaMaravilla =(req,res)=>{
     let nombreMaravilla=req.params.nombre;
-    //console.log(nombreMaravilla);
     dbConnection.query("SELECT * FROM maravilla WHERE nombre=?",[nombreMaravilla],(err,data)=>{
         if(err){
             res.status(500).json({'mensaje':err})
@@ -22,10 +20,11 @@ const todasLasMaravillas =(req,res)=>{
         }
     })
   };
-  const cargarMaravilla=(req,res)=>{
-    let {nombreMaravilla,descripcionMaravilla,paisMaravilla,ciudadMaravilla}= req.body;//destructing
 
-    dbConnection.query("INSERT INTO maravilla (nombre,descripcion,pais,ciudad) VALUES (?,?,?,?)",[nombreMaravilla,descripcionMaravilla,paisMaravilla,ciudadMaravilla],(error,data)=>{
+  const cargarMaravilla=(req,res)=>{
+    let {nombre,descripcion,pais,ciudad}= req.body;//destructing
+    //console.log(req.body);
+    dbConnection.query("INSERT INTO maravilla (nombre,descripcion,pais,ciudad) VALUES ('nombre','descripcion','pais','ciudad')",[nombre,descripcion,pais,ciudad],(error,data)=>{
         if(error){
             console.log(error)
             res.status(500).json({'mensaje':"error en el server..."})
@@ -35,7 +34,6 @@ const todasLasMaravillas =(req,res)=>{
         }
     })
 };
-//const estamosProbando = "Resultado del controller";
 module.exports={todasLasMaravillas,unaMaravilla,cargarMaravilla}
 
 

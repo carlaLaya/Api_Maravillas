@@ -1,4 +1,4 @@
-//coneccion a la DB relacional
+//conexion a la DB relacional
 //import mysql2 from 'mysql2'
 
 //INFORMACION SOBRE LA BASE DE DATOS Y LOS METODOS DE CONEXION
