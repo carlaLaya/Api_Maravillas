@@ -1,16 +1,18 @@
 const express=require('express');
 const dbConnection= require('../config/conexionconDB');
 
-const todasLasMaravillas =(req,res)=>{
-  dbConnection.query("SELECT * FROM maravilla",(err,data)=>{
-      if(err){
-          res.status(500).json({'mensaje':err})
-      }else{
-        console.log(data)
-          res.status(200).send(data)
-      }
-  })};
-  const unaMaravilla =(req,res)=>{
+    const todasLasMaravillas =(req,res)=>{
+
+    dbConnection.query("SELECT * FROM maravilla",(err,data)=>{
+        if(err){
+            res.status(500).json({'mensaje':err})
+        }else{
+            console.log(data)
+            res.status(200).send(data)
+        }
+    })};
+
+  /*const unaMaravilla =(req,res)=>{
     let nombreMaravilla=req.params.nombre;
     dbConnection.query("SELECT * FROM maravilla WHERE nombre=?",[nombreMaravilla],(err,data)=>{
         if(err){
@@ -19,12 +21,15 @@ const todasLasMaravillas =(req,res)=>{
             res.send(data)
         }
     })
-  };
+  };*/
 
-  const cargarMaravilla=(req,res)=>{
-    let {nombre,descripcion,pais,ciudad}= req.body;//destructing
-    //console.log(req.body);
-    dbConnection.query("INSERT INTO maravilla (nombre,descripcion,pais,ciudad) VALUES ('nombre','descripcion','pais','ciudad')",[nombre,descripcion,pais,ciudad],(error,data)=>{
+  const guardarMaravilla=(req,res)=>{
+    //let {nombre,descripcion,pais,ciudad}= req.form;//destructing
+    console.log("aca estamos en maravilla.js " );
+    //const nombre = "SMA";
+    //const descripcion = "Esto es San Martin de los Andes";
+    //console.log("data: " + JSON.parse(req));
+    dbConnection.query("INSERT INTO `maravilla`(`id`, `nombre`, `descripcion`, `pais`, `ciudad`) VALUES (?,?,'?','?')",[nombre, descripcion],(error,data)=>{
         if(error){
             console.log(error)
             res.status(500).json({'mensaje':"error en el server..."})
@@ -34,7 +39,7 @@ const todasLasMaravillas =(req,res)=>{
         }
     })
 };
-module.exports={todasLasMaravillas,unaMaravilla,cargarMaravilla}
+module.exports={todasLasMaravillas,guardarMaravilla}
 
 
 
