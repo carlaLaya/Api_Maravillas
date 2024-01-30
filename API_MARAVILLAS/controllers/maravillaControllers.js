@@ -12,7 +12,7 @@ const dbConnection= require('../config/conexionconDB');
         }
     })};
 
-  /*const unaMaravilla =(req,res)=>{
+  const unaMaravilla =(req,res)=>{
     let nombreMaravilla=req.params.nombre;
     dbConnection.query("SELECT * FROM maravilla WHERE nombre=?",[nombreMaravilla],(err,data)=>{
         if(err){
@@ -21,15 +21,17 @@ const dbConnection= require('../config/conexionconDB');
             res.send(data)
         }
     })
-  };*/
+  };
 
   const guardarMaravilla=(req,res)=>{
     //let {nombre,descripcion,pais,ciudad}= req.form;//destructing
     console.log("aca estamos en maravilla.js " );
-    //const nombre = "SMA";
-    //const descripcion = "Esto es San Martin de los Andes";
-    //console.log("data: " + JSON.parse(req));
-    dbConnection.query("INSERT INTO `maravilla`(`id`, `nombre`, `descripcion`, `pais`, `ciudad`) VALUES (?,?,'?','?')",[nombre, descripcion],(error,data)=>{
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const pais = req.body.pais;
+    const ciudad = req.body.ciudad;
+
+    dbConnection.query("INSERT INTO `maravilla`(`nombre`, `descripcion`, `pais`, `ciudad`) VALUES (?,?,?,?)",[nombre, descripcion, pais, ciudad],(error,data)=>{
         if(error){
             console.log(error)
             res.status(500).json({'mensaje':"error en el server..."})
@@ -39,7 +41,7 @@ const dbConnection= require('../config/conexionconDB');
         }
     })
 };
-module.exports={todasLasMaravillas,guardarMaravilla}
+module.exports={todasLasMaravillas,guardarMaravilla, unaMaravilla}
 
 
 
