@@ -8,12 +8,15 @@ require('./config/conexionconDB');//traer el modulo de la conexion
 
 api.use(express.json());
 api.use (cors());
-
+//api.use(express.urlencoded({extended:true}))
+//aca incorporo las imagenes
+api.use('/imagen/',express.static("./imagenes")); //insica el enpoint a donde redirige a la imagen
 
 //ruteo de peticiones
 api.get("/lista",todasLasMaravillas);
 api.get("/lista/:nombre",unaMaravilla);
 api.post("/guardar",guardarMaravilla);
+
 
 //indico puertos
 api.listen(port,() => {
