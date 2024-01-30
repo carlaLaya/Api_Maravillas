@@ -24,8 +24,6 @@ const dbConnection= require('../config/conexionconDB');
   };
 
   const guardarMaravilla=(req,res)=>{
-    //let {nombre,descripcion,pais,ciudad}= req.form;//destructing
-    console.log("aca estamos en maravilla.js " );
     const nombre = req.body.nombre;
     const descripcion = req.body.descripcion;
     const pais = req.body.pais;
