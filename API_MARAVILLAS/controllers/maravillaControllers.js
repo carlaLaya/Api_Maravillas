@@ -39,15 +39,17 @@ const dbConnection= require('../config/conexionconDB');
 };
 
 const eliminarMaravilla =(req,res)=>{
-    const {id}=req.body;
-    dbConnection.query ("DELETE INTO `maravilla` WHERE id=?",[id], (err,data)=>{
+    
+    const id =req.body.id;
+    console.log("Se va a eliminar la maravilla: " + id);
+    dbConnection.query ("DELETE FROM maravilla WHERE id = ?", [id], (err,data)=>{
         if(data){
-            res.status(200).json({"mensaje":"mensaje':Maravilla Eliminada"})
+            res.status(200).json({"mensaje":"mensaje':La Maravilla Eliminada"})
         }else{
             res.status(500).json({"mensaje":"error en API "})
         }
     })
-    res.status(500).json({'mensaje':"Maravilla Eliminada"})
+    /* res.status(500).json({'mensaje':"No se pudo elminar"}) */
   };
 
   const modificarMaravilla=(req,res)=>{
@@ -56,7 +58,7 @@ const eliminarMaravilla =(req,res)=>{
     console.log(req.body)
     dbConnection.query("UPDATE maravilla SET nombre=?,descripcion=?,pais=?,ciudad=? WHERE id=?",[nombre,descripcion,pais,ciudad,id],(err,data)=>{
         if(data){
-            res.status(201).json({"message":"pelicula modificada"})
+            res.status(201).json({"message":"maravilla modificada"})
         }else{
             res.status(500).json({"message":"error en carga "})
         }
